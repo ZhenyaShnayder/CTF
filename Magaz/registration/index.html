@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="beauty.css">
+	<meta charset=utf-8>
+	<title>Магазин</title>
+</head>
+<body>
+<div class="container">
+<h1>Регистрация</h1>
+<form method="POST" action="/registration.php">
+			<input type="text" class="text" placeholder="Email" name="email">
+			<input type="password" class="text" placeholder="Пароль" name="password">
+			<input type="password" class="text" placeholder="Введите повторно пароль" name="password">
+			<button class="button">Зарегистрироваться</button>
+		</form>
+<button class="button" onclick="registration(event)">Есть аккаунт? Войти</button>
+</div>
+</body>
+</html>

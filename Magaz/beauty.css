@@ -1,0 +1,108 @@
+/* Общие стили для страницы */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+/* Контейнер для формы и заголовка */
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+h1 {
+    font-size: 28px;
+    color: #444;
+    margin-bottom: 25px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.text {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.text:focus {
+    border-color: #6a82fb;
+    box-shadow: 0 0 8px rgba(106, 130, 251, 0.3);
+    outline: none;
+    background: rgba(255, 255, 255, 1);
+}
+
+.button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.button[type="submit"] {
+    background: linear-gradient(135deg, #6a82fb, #6a82fb);
+    color: #fff;
+}
+
+.button[type="submit"]:hover {
+    background: linear-gradient(135deg, #5a6fdb, #5a6fdb);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(106, 130, 251, 0.3);
+}
+
+.button:not([type="submit"]) {
+    background: transparent;
+    color: #6a82fb;
+    border: 2px solid #6a82fb;
+}
+
+.button:not([type="submit"]):hover {
+    background: rgba(106, 130, 251, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(106, 130, 251, 0.2);
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+.button:last-child {
+    margin-top: 20px;
+    background: transparent;
+    color: #6a82fb;
+    border: 2px solid #6a82fb;
+}
+
+.button:last-child:hover {
+    background: rgba(106, 130, 251, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(106, 130, 251, 0.2);
+}
+
+.container:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
