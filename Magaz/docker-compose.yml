@@ -1,12 +1,33 @@
 version: '3.8'
+
 services:
   magaz:
-   build:
-    context: .
-    dockerfile: ./Dockerfile
-   image: "magaz"
-   restart: always
-   ports: 
-    - "7777:80"
-   volumes:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: "magaz"
+    restart: always
+    ports:
+      - "7777:80"
+    volumes:
       - ./service:/var/www/html
+    networks:
+	- internal-network
+
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - internal-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  internal-network:
+    driver: bridge
