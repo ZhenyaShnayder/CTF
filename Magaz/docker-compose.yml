@@ -2,30 +2,29 @@ version: '3.8'
 
 services:
   magaz:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    image: "magaz"
-    restart: always
+    build: .
     ports:
       - "7777:80"
     volumes:
       - ./service:/var/www/html
+    depends_on:
+      - mysql
     networks:
-	- internal-network
+      - internal_network
+    restart: always
 
-  mongo:
-    image: mongo:latest
-    container_name: mongodb
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mysql_db
     volumes:
-      - mongodb_data:/data/db
-      - ./db:/docker-entrypoint-initdb.d
+      - ./db:/docker-entrypoint-initdb.d/
     networks:
-      - internal-network
-
-volumes:
-  mongodb_data:
+      - internal_network
+    restart: always
 
 networks:
-  internal-network:
+  internal_network:
     driver: bridge

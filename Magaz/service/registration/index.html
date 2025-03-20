@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="beauty.css">
-	<script src=registration.js></script>
-	<meta charset=utf-8>
-	<title>Магазин</title>
+	<link rel = "stylesheet" href = "beauty.css">
+	<script src = "registration.js"></script>
+	<meta charset = utf-8>
+	<title>Регистрация</title>
 </head>
 <body>
-<div class="container">
-<h1>Регистрация</h1>
-<form method="POST" action="/registration.php">
+	<div class="container">
+		<h1>Регистрация</h1>
+		<form method="POST" action="/registration/registration.php">
 			<input type="text" class="text" placeholder="Email" name="email" id="email">
-			<input type="password" class="text" placeholder="Пароль" name="password" id="password1">
+			<input type="password" class="text" placeholder="Пароль" name="password">
 			<input type="password" class="text" placeholder="Введите повторно пароль" name="password2">
-			<button class="button" onclick="submitForm()">Зарегистрироваться</button>
+			<button class="button" type="submit">Зарегистрироваться</button>
 		</form>
-<button class="button">Есть аккаунт? Войти</button>
-</div>
+		<button class="button" onclick="authorization()">Есть аккаунт? Войти</button>
+	</div>
 </body>
 </html>

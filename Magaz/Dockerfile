@@ -1,6 +1,9 @@
-FROM php:8.1-apache
+FROM php:8.2-apache
 
-COPY service/ /var/www/html/
-RUN chown -R www-data:www-data /var/www/
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+COPY ./service /var/www/html
+
+RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80

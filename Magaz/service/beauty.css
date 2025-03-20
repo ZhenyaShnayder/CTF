@@ -1,4 +1,3 @@
-/* Общие стили для страницы */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
@@ -10,7 +9,6 @@ body {
     color: #333;
 }
 
-/* Контейнер для формы и заголовка */
 .container {
     background: rgba(255, 255, 255, 0.9);
     padding: 40px 30px;
@@ -23,7 +21,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Заголовок */
 h1 {
     font-size: 28px;
     color: #444;
@@ -32,7 +29,6 @@ h1 {
     letter-spacing: -0.5px;
 }
 
-/* Поля ввода */
 .text {
     width: 100%;
     padding: 12px 15px;
@@ -52,7 +48,6 @@ h1 {
     background: rgba(255, 255, 255, 1);
 }
 
-/* Кнопки */
 .button {
     width: 100%;
     padding: 12px;
@@ -88,12 +83,10 @@ h1 {
     box-shadow: 0 5px 15px rgba(106, 130, 251, 0.2);
 }
 
-/* Анимация при наведении на кнопку */
 .button:hover {
     opacity: 0.9;
 }
 
-/* Дополнительные стили для кнопки регистрации */
 .button:last-child {
     margin-top: 20px;
     background: transparent;
@@ -107,7 +100,6 @@ h1 {
     box-shadow: 0 5px 15px rgba(106, 130, 251, 0.2);
 }
 
-/* Эффект для всей формы при наведении */
 .container:hover {
     transform: scale(1.02);
     transition: transform 0.3s ease;
