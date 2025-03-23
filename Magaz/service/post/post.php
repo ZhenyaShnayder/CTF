@@ -4,7 +4,7 @@
 	    header("Location: /");
 	    exit;
 	}
-	$db = new mysqli('db', 'root', 'rootpassword', 'vkurse_db'); // Подключение к базе данных
+	$db = new mysqli('mysql', 'root', 'rootpassword', 'mysql_db');
 	if (!$db) {
 		echo "<!DOCTYPE html>
 		<html>
@@ -58,7 +58,7 @@
 				exit;
 			}
 
-			$query = "INSERT INTO secrets (user_id, secret_word, secret_number) VALUES (?, ?, ?)";
+			$query = "INSERT INTO secrets (id_user, secret_word, secret_number) VALUES (?, ?, ?)";
 			$stmt = $db->prepare($query);
 			if (!$stmt) {
 				echo "<!DOCTYPE html>
