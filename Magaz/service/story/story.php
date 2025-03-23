@@ -40,6 +40,32 @@
 			exit;
 		}
 		//ЛОГИКА
+		$query = "SELECT secret_number, secret_word FROM secrets WHERE id_user = ?";
+		$stmt_secrets = $db->prepare($query);
+		if (!$stmt_secrets) {
+			echo "<!DOCTYPE html>
+			<html>
+			<body>
+			<h1>Ошибка подготовки запроса: " . $db->error . "</h1>
+			</body>
+			</html>";
+			$stmt->close();
+			$db->close();
+			exit;
+		}
+		$stmt_secrets->bind_param("i", $db_user_id);
+		$stmt_secrets->execute();
+		$stmt_secrets->store_result();
+		$stmt_secrets->bind_result($secret_number, $secret_word);
+		
+		$secrets = [];
+		while ($stmt_secrets->fetch()) {
+		$secrets[] = [
+		    'secret_number' => $secret_number,
+		    'secret_word' => $secret_word,
+		];
+		}
+		$stmt_secrets->close();
 	} else {
 		$stmt->close();
 		$db->close();

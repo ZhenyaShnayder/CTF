@@ -33,6 +33,8 @@
 	$stmt->execute();
 	$stmt->store_result();
 	if ($stmt->num_rows > 0) {
+		$stmt->bind_result($db_user_id);
+    		$stmt->fetch();
 		if($_SESSION['user_id'] != $db_user_id){
 			$stmt->close();
 			$db->close();
@@ -47,9 +49,9 @@
 			if (!$secret_word || !$number) {
 				echo "<!DOCTYPE html>
 				<html>
-				<body>
-				<h1>Ошибка: Все поля обязательны для заполнения.</h1>
-				</body>
+					<body>
+						<h1>Ошибка: Все поля обязательны для заполнения.</h1>
+					</body>
 				</html>";
 				$stmt->close();
 				$db->close();
@@ -61,9 +63,9 @@
 			if (!$stmt) {
 				echo "<!DOCTYPE html>
 				<html>
-				<body>
-				<h1>Ошибка подготовки запроса: " . $db->error . "</h1>
-				</body>
+					<body>
+						<h1>Ошибка подготовки запроса: " . $db->error . "</h1>
+					</body>
 				</html>";
 				$stmt->close();
 				$db->close();
@@ -73,21 +75,22 @@
 			if (!$stmt->execute()) {
 				echo "<!DOCTYPE html>
 				<html>
-				<body>
-				<h1>Ошибка при добавлении данных: " . $insertStmt->error . "</h1>
-				</body>
+					<body>
+						<h1>Ошибка при добавлении данных: " . $insertStmt->error . "</h1>
+					</body>
 				</html>";
 			}
 			$stmt->close();
+			$db->close();
+			header("Location: /games/");
+			exit;
 		}
-		
 	} else {
 		$stmt->close();
 		$db->close();
 		header("Location: /");
 		exit;
 	}
-	
 	$stmt->close();
 	$db->close();
 ?>

@@ -95,9 +95,11 @@
 			exit;
 		}
 		
+		$userId = $query->insert_id;
+		 
 		$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 		$authToken = bin2hex(random_bytes(32));
-		$cookieName = "cookie";
+		$cookieName = "session";
 	    	$expiryTime = time() + (86400 * 30);
 		setcookie($cookieName, $authToken, $expiryTime, "/", "", true, true);
 		
@@ -109,6 +111,7 @@
 		$query = $db->prepare('INSERT INTO cookie (user_id, cookie) VALUES (?, ?)');
 		$query->bind_param('is', $userId, $authToken);
 		$query->execute();
+		$_SESSION['user_id'] = $user['id'];
 		header("Location: /games/");
 	}
 	$db->close();

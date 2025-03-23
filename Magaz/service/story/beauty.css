@@ -22,3 +22,51 @@ body {
     font-weight: 600;
     margin: 0;
     letter-spacing: -0.5px
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+table thead {
+    background: linear-gradient(135deg, #6a82fb, #6a82fb);
+    color: #fff;
+}
+
+table thead th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+table tbody tr {
+    transition: background 0.3s ease;
+}
+
+table tbody tr:hover {
+    background: rgba(106, 130, 251, 0.1);
+}
+
+table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+table tbody td[colspan="2"] {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    font-style: italic;
+}

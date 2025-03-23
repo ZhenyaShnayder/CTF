@@ -43,8 +43,8 @@
 		}
 		$user = $result->fetch_assoc();
 		if(!$user || !password_verify($password, $user['password'])){
-			if (isset($_COOKIE['cookie'])) {
-        			setcookie('cookie', '', time() - 3600, "/", "", true, true);
+			if (isset($_COOKIE['session'])) {
+        			setcookie('session', '', time() - 3600, "/", "", true, true);
         		}
 			$_SESSION['message'] = "Invalid username or password";
 			$db->close();
@@ -53,7 +53,7 @@
 			exit;
 		}
 		$authToken = bin2hex(random_bytes(32));
-		$cookieName = "cookie";
+		$cookieName = "session";
 	    	$expiryTime = time() + (86400 * 30);
 		setcookie($cookieName, $authToken, $expiryTime, "/", "", true, true);
 		
@@ -71,7 +71,7 @@
 		}
 
 		$query->execute();
-    		$_SESSION['user_id'] = $user_id;
+    		$_SESSION['user_id'] = $user['id'];
 		header("Location: /games/");
 	}
 	$db->close();
