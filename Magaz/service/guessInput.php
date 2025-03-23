@@ -45,7 +45,7 @@
 			$number = $_POST['number'] ?? null;
 			$post_id = $_POST['post_id'] ?? null;
 			if($post_id && $number){
-				$query = "SELECT secret_number, secret_word FROM secrets WHERE id = ?";
+				$query = "SELECT secret_number FROM secrets WHERE id = ?";
 				$stmt_secret = $db->prepare($query);
 				if (!$stmt_secret) {
 					echo "<!DOCTYPE html>
@@ -59,10 +59,11 @@
 				$stmt_secret->bind_param("i", $post_id);
 				$stmt_secret->execute();
 				$stmt_secret->store_result();
-				$stmt_secret->bind_result($secret_number, $secret_word);
+				$stmt_secret->bind_result($secret_number);
+				$secret['guessed'] = false;
 				if ($stmt_secret->fetch()) {
 					if ($number == $secret_number) {
-						$_SESSION['guessed_secrets'][$post_id] = $secret_word; 
+						$_SESSION['guessed_secrets'][$post_id] = $secret_number;
 					}else{
 						$_SESSION['guessed_secrets'][$post_id] = null;
 					}
@@ -78,6 +79,6 @@
 	
 	$stmt->close();
 	$db->close();
-	//header("Location: /games/");
+	header("Location: /games/");
 	exit;
 ?>

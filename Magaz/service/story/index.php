@@ -63,7 +63,7 @@
 		$secrets = [];
 		while ($stmt_secrets->fetch()) {
 		$secrets[] = [
-		    'id' => $id,//!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		    'id' => $id,
 		    'secret_number' => $secret_number,
 		    'secret_word' => $secret_word,
 		];
@@ -100,7 +100,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th>id Поста</th>
+					<th>ID Поста</th>
 					<th>Секретное число</th>
 					<th>Выигрыш</th>
 				</tr>

@@ -41,7 +41,7 @@
 			header("Location: /");
 			exit;
 		}
-		$query = "SELECT a.id, b.email FROM secrets a JOIN users b on a.id_user=b.id";
+		$query = "SELECT a.id, b.email, a.secret_number, a.secret_word FROM secrets a JOIN users b on a.id_user=b.id";
 		$stmt_secrets = $db->prepare($query);
 		if (!$stmt_secrets) {
 			echo "<!DOCTYPE html>
@@ -56,13 +56,16 @@
 		}
 		$stmt_secrets->execute();
 		$stmt_secrets->store_result();
-		$stmt_secrets->bind_result($id_post, $email_user);
+		$stmt_secrets->bind_result($id_post, $email_user, $secret_number, $secret_word);
 		
 		$secrets = [];
 		while ($stmt_secrets->fetch()) {
 		$secrets[] = [
 		    'id_post' => $id_post,
 		    'email_user' => $email_user,
+		    'secret_number' => $secret_number,
+		    'secret_word' => $secret_word,
+		    'guessed' => isset($_SESSION['guessed_secrets'][$id_post]) && $_SESSION['guessed_secrets'][$id_post] !== null,
 		];
 		}
 		$stmt_secrets->close();
@@ -103,6 +106,7 @@
                         <th>ID поста</th>
                         <th>Email пользователя</th>
                         <th>Ваше предположение</th>
+                        <th>Выигрыш</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -114,11 +118,18 @@
 				<div class="input-container">
 				<form method="POST" action="/guessInput.php">
 					<input type="hidden" name="post_id" value="<?= htmlspecialchars($secret['id_post']) ?>">
-					<input type="number" id="guessInput" placeholder="Введите число">
+					<input type="number" name = "number" placeholder="Введите число">
 					<button class="submit">Отправить</button>
 				</form>
 				</div>
                             </td>
+			    <td>
+				<?php if (isset($_SESSION['guessed_secrets'][$secret['id_post']])): ?>
+                                <?= htmlspecialchars($secret['secret_word']) ?>
+				<?php else: ?>
+					—
+				<?php endif; ?>
+			</td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
