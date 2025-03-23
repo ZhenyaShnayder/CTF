@@ -40,6 +40,46 @@
 			exit;
 		}
 		//ЛОГИКА
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$secret_word = $_POST['secret_word'] ?? null;
+			$number = $_POST['number'] ?? null;
+
+			if (!$secret_word || !$number) {
+				echo "<!DOCTYPE html>
+				<html>
+				<body>
+				<h1>Ошибка: Все поля обязательны для заполнения.</h1>
+				</body>
+				</html>";
+				$stmt->close();
+				$db->close();
+				exit;
+			}
+
+			$query = "INSERT INTO secrets (user_id, secret_word, number) VALUES (?, ?, ?)";
+			$stmt = $db->prepare($query);
+			if (!$stmt) {
+				echo "<!DOCTYPE html>
+				<html>
+				<body>
+				<h1>Ошибка подготовки запроса: " . $db->error . "</h1>
+				</body>
+				</html>";
+				$stmt->close();
+				$db->close();
+				exit;
+			}
+			$stmt->bind_param("iss", $db_user_id, $secret_word, $number);
+			if (!$stmt->execute()) {
+				echo "<!DOCTYPE html>
+				<html>
+				<body>
+				<h1>Ошибка при добавлении данных: " . $insertStmt->error . "</h1>
+				</body>
+				</html>";
+			}
+			$stmt->close();
+		}
 		
 	} else {
 		$stmt->close();
