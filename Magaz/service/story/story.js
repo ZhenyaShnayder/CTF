@@ -5,11 +5,3 @@ function proverka(){
 	}
 	return false;
 }
-
-function story(){
-	window.location.href="/story";
-}
-
-function post(){
-	window.location.href="/post";
-}

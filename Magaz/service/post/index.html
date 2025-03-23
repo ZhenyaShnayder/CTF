@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="beauty.css">
+    <meta charset="utf-8">
+    <script src="post.js"></script>
+    <title>Your post</title>
+</head>
+<body>
+    <button class="back" onclick="window.location.href='/games'">⇐</button>
+    <div class="all">
+        <form method="post" action="post.php" enctype="multipart/form-data">
+            <textarea placeholder="Загаданное число" name="number" id="number"></textarea>
+            <textarea placeholder="Секретная строка (ваш выигрыш)" name="secret_word" id="secret_word"></textarea>
+            <div class="buttons">
+                <button class="button" type="submit" name="public">Опубликовать</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

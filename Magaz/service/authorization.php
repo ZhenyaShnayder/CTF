@@ -71,7 +71,7 @@
 		}
 
 		$query->execute();
-    
+    		$_SESSION['user_id'] = $user_id;
 		header("Location: /games/");
 	}
 	$db->close();
