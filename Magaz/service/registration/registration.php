@@ -111,7 +111,7 @@
 		$query = $db->prepare('INSERT INTO cookie (user_id, cookie) VALUES (?, ?)');
 		$query->bind_param('is', $userId, $authToken);
 		$query->execute();
-		$_SESSION['user_id'] = $user['id'];
+		$_SESSION['user_id'] = $userId;
 		header("Location: /games/");
 	}
 	$db->close();
