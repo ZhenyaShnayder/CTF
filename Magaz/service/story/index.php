@@ -32,6 +32,7 @@
 	$stmt->bind_param("s", $cookieValue);
 	$stmt->execute();
 	$stmt->store_result();
+	
 	if ($stmt->num_rows > 0) {
 		$stmt->bind_result($db_user_id);
 		$stmt->fetch();
@@ -78,3 +79,46 @@
 	$stmt->close();
 	$db->close();
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="beauty.css">
+    <script src="games.js"></script>
+    <title>История игр</title>
+</head>
+<body>
+    <header class="panel">
+    	<button class="outside" onclick = "window.location.href='/games'">⇐</button>
+        <h1>История игр</h1>
+        <div class="Name_out">
+            <button class="outside" onclick = "proverka();">Выйти</button>
+        </div>
+    </header>
+	<main>
+		<h2>Ваши игры:</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Номер</th>
+					<th>Секретное слово</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if (!empty($secrets)): ?>
+				<?php foreach ($secrets as $secret): ?>
+					<tr>
+						<td><?= htmlspecialchars($secret['secret_number']) ?></td>
+						<td><?= htmlspecialchars($secret['secret_word']) ?></td>
+					</tr>
+					<?php endforeach; ?>
+					<?php else: ?>
+				<tr>
+					<td colspan="2">У вас пока нет игр</td>
+				</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
+	</main>
+</body>
+</html>
