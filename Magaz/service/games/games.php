@@ -4,7 +4,7 @@
 	    header("Location: /");
 	    exit;
 	}
-	$db = new mysqli('db', 'root', 'rootpassword', 'vkurse_db'); // Подключение к базе данных
+	$db = new mysqli('mysql', 'root', 'rootpassword', 'mysql_db');
 	if (!$db) {
 		echo "<!DOCTYPE html>
 		<html>
@@ -33,6 +33,8 @@
 	$stmt->execute();
 	$stmt->store_result();
 	if ($stmt->num_rows > 0) {
+		$stmt->bind_result($db_user_id);
+		$stmt->fetch();
 		if($_SESSION['user_id'] != $db_user_id){
 			$stmt->close();
 			$db->close();
