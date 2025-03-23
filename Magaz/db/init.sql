@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS cookie (
 -- Таблица для хранения секретных слов
 CREATE TABLE IF NOT EXISTS secrets (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    number VARCHAR(255) NOT NULL,
+    secret_number VARCHAR(255) NOT NULL,
     id_user INT NOT NULL,
     secret_word VARCHAR(255) NOT NULL,
     FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE

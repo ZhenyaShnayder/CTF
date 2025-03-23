@@ -56,7 +56,7 @@
 				exit;
 			}
 
-			$query = "INSERT INTO secrets (user_id, secret_word, number) VALUES (?, ?, ?)";
+			$query = "INSERT INTO secrets (user_id, secret_word, secret_number) VALUES (?, ?, ?)";
 			$stmt = $db->prepare($query);
 			if (!$stmt) {
 				echo "<!DOCTYPE html>
