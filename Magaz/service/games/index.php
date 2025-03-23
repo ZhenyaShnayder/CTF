@@ -32,7 +32,6 @@
 	$stmt->bind_param("s", $cookieValue);
 	$stmt->execute();
 	$stmt->store_result();
-	
 	if ($stmt->num_rows > 0) {
 		$stmt->bind_result($db_user_id);
 		$stmt->fetch();
@@ -42,7 +41,7 @@
 			header("Location: /");
 			exit;
 		}
-		$query = "SELECT secret_number, secret_word, id FROM secrets WHERE id_user = ?";
+		$query = "SELECT a.id, b.email FROM secrets a JOIN users b on a.id_user=b.id";
 		$stmt_secrets = $db->prepare($query);
 		if (!$stmt_secrets) {
 			echo "<!DOCTYPE html>
@@ -55,17 +54,15 @@
 			$db->close();
 			exit;
 		}
-		$stmt_secrets->bind_param("i", $db_user_id);
 		$stmt_secrets->execute();
 		$stmt_secrets->store_result();
-		$stmt_secrets->bind_result($secret_number, $secret_word, $id);
+		$stmt_secrets->bind_result($id_post, $email_user);
 		
 		$secrets = [];
 		while ($stmt_secrets->fetch()) {
 		$secrets[] = [
-		    'id' => $id,//!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		    'secret_number' => $secret_number,
-		    'secret_word' => $secret_word,
+		    'id_post' => $id_post,
+		    'email_user' => $email_user,
 		];
 		}
 		$stmt_secrets->close();
@@ -84,43 +81,49 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="beauty.css">
-    <script src="story.js"></script>
-    <title>История игр</title>
+    <script src="games.js"></script>
+    <title>Игры</title>
 </head>
 <body>
     <header class="panel">
-    	<button class="outside" onclick = "window.location.href='/games'">⇐</button>
-        <h1>История игр</h1>
+        <h1>Игры</h1>
         <div class="Name_out">
+            <button class="outside" onclick = "post()">Создать игру</button>
+            <button class="outside" onclick = "story()">История игр</button>
             <button class="outside" onclick = "proverka();">Выйти</button>
         </div>
     </header>
-	<main>
-		<h2>Ваши игры:</h2>
-		<table>
-			<thead>
-				<tr>
-					<th>id Поста</th>
-					<th>Секретное число</th>
-					<th>Выигрыш</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if (!empty($secrets)): ?>
-				<?php foreach ($secrets as $secret): ?>
-					<tr>
-						<td><?= htmlspecialchars($secret['id']) ?></td>
-						<td><?= htmlspecialchars($secret['secret_number']) ?></td>
-						<td><?= htmlspecialchars($secret['secret_word']) ?></td>
-					</tr>
-					<?php endforeach; ?>
-					<?php else: ?>
-				<tr>
-					<td colspan="3">У вас пока нет игр</td>
-				</tr>
-				<?php endif; ?>
-			</tbody>
-		</table>
-	</main>
+     <main>
+        <?php if (empty($secrets)): ?>
+            <p>Игр пока нет</p>
+        <?php else: ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID поста</th>
+                        <th>Email пользователя</th>
+                        <th>Ваше предположение</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($secrets as $secret): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($secret['id_post']) ?></td>
+                            <td><?= htmlspecialchars($secret['email_user']) ?></td>
+                            <td>
+				<div class="input-container">
+				<form method="POST" action="/guessInput.php">
+					<input type="hidden" name="post_id" value="<?= htmlspecialchars($secret['id_post']) ?>">
+					<input type="number" id="guessInput" placeholder="Введите число">
+					<button class="submit">Отправить</button>
+				</form>
+				</div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </main>
 </body>
 </html>

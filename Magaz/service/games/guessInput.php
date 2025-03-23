@@ -41,7 +41,34 @@
 			header("Location: /");
 			exit;
 		}
-		//ЛОГИКА
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$number = $_POST['number'] ?? null;
+			$post_id = $_POST['post_id'] ?? null;
+			if($post_id && $number){
+				$query = "SELECT secret_number FROM secrets WHERE id = ?";
+				$stmt_secret = $db->prepare($query);
+				if (!$stmt_secret) {
+					echo "<!DOCTYPE html>
+					<html>
+					<body>
+					<h1>Ошибка подготовки запроса: " . $db->error . "</h1>
+					</body>
+					</html>";
+					exit;
+				}
+				$stmt_secret->bind_param("i", $post_id);
+				$stmt_secret->execute();
+				$stmt_secret->store_result();
+				$stmt_secret->bind_result($secret_number);
+				if ($stmt_secret->fetch()) {
+					if ($number == $secret_number) {
+						echo "Win";
+					} else {
+						echo "Lose";
+					}
+				}
+			}
+		}
 	} else {
 		$stmt->close();
 		$db->close();
