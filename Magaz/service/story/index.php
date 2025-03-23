@@ -84,7 +84,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="beauty.css">
-    <script src="games.js"></script>
+    <script src="story.js"></script>
     <title>История игр</title>
 </head>
 <body>
